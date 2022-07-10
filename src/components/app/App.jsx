@@ -7,7 +7,7 @@ import { NavigationBar } from "../navigation-bar/navigationBar";
 // Application routes
 import { Home } from "../../routes/home/home";
 import { Shop } from "../../routes/shop/shop";
-import { SignIn } from "../../routes/sign-in/signIn";
+import { Authentication } from "../../routes/authentication/authentication";
 
 export const App = () => {
   return (
@@ -15,7 +15,7 @@ export const App = () => {
       <Route path="/" element={<NavigationBar />}>
         <Route index element={<Home />} />
         <Route path="shop" element={<Shop />} />
-        <Route path="sign-in" element={<SignIn />} />
+        <Route path="auth" element={<Authentication />} />
       </Route>
     </Routes>
   );

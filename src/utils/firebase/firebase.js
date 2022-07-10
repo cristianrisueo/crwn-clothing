@@ -7,8 +7,18 @@ import { initializeApp } from "firebase/app";
   GoogleAuthProvider is the provider needed to get the authtoken from Google
   server and to check that token once it's sent back.
   signInWithPopup is the function that will be executed in the frontend to auth.
+  createUserWithEmailAndPassword is the method to create an authenticated user 
+  from email and password in firebase.
+  signInWithEmailAndPassword is the method that sign in a user if exists with
+  email and password.
 */
-import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
+import {
+  GoogleAuthProvider,
+  getAuth,
+  signInWithPopup,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 
 /*
   Libraries needed to store in the DB  
@@ -54,7 +64,12 @@ export const googleSignInWithPopup = () =>
 const firestoreDB = getFirestore();
 
 // Function to create a new document in the collection users
-export const createUserDocument = async (user) => {
+export const createUserDocument = async (
+  user,
+  aditionalInformation = { displayName: "empty" }
+) => {
+  if (!user) return;
+
   // Points to the collection users (doesn't matter if exists)
   const userDocument = doc(firestoreDB, "users", user.uid);
 
@@ -71,9 +86,24 @@ export const createUserDocument = async (user) => {
         displayName,
         email,
         createdAt,
+        ...aditionalInformation,
       });
     } catch (e) {
       console.error(`Error creating the user ${e.message}`);
     }
   }
+};
+
+// Creates an authenticated user in firebase
+export const createUserWithEmailPassword = async (email, password) => {
+  if (!email || !password) return;
+
+  return await createUserWithEmailAndPassword(auth, email, password);
+};
+
+// Calls the method signInWithEmailAndPassword
+export const signInAuthUserWithEmailAndPassword = async (email, password) => {
+  if (!email || !password) return;
+
+  return await signInWithEmailAndPassword(auth, email, password);
 };

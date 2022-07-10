@@ -18,7 +18,7 @@ export const NavigationBar = () => {
           <Link className="link" to="shop">
             SHOP
           </Link>
-          <Link className="link" to="sign-in">
+          <Link className="link" to="auth">
             SIGN-IN
           </Link>
         </div>
