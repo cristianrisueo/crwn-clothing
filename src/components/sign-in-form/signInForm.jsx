@@ -1,35 +1,43 @@
+// React components
 import { useState } from "react";
 
-import { FormInput } from "../form-input/formInput";
-import { Button } from "../button/button";
-
+// Firebase components
 import {
   googleSignInWithPopup,
   createUserDocument,
   signInAuthUserWithEmailAndPassword,
 } from "../../utils/firebase/firebase";
 
+// Application components
+import { FormInput } from "../form-input/formInput";
+import { Button } from "../button/button";
+
+// Styles
 import "./signInForm.scss";
 
+// Inital values for the variable formFields
 const defaultFormFields = {
   email: "",
   password: "",
 };
 
 export const SignInForm = () => {
+  // Creates the variable formFields and destructures its values
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
 
-  const resetFormFields = () => {
-    setFormFields(defaultFormFields);
-  };
-
+  // Sign in with google popup method
   const signInWithGoogle = async () => {
     const { user } = await googleSignInWithPopup();
     await createUserDocument(user);
   };
 
-  const handleSubmit = async (event) => {
+  /*
+    Event handler for the onSubmit event of the form.
+    Calls the methods of Firebase to log-in an auth user and
+    checks for the errors associated with log-in.
+  */
+  const onSubmitHandler = async (event) => {
     event.preventDefault();
 
     try {
@@ -38,7 +46,8 @@ export const SignInForm = () => {
         password
       );
       console.log(response);
-      resetFormFields();
+
+      setFormFields(defaultFormFields);
     } catch (error) {
       switch (error.code) {
         case "auth/wrong-password":
@@ -53,7 +62,11 @@ export const SignInForm = () => {
     }
   };
 
-  const handleChange = (event) => {
+  /*
+    Event handler for the inputs of the form. Triggered when they change.
+    Updates the variable of defaultFormFields with the value of the inputs.
+  */
+  const onChangeHandler = (event) => {
     const { name, value } = event.target;
 
     setFormFields({ ...formFields, [name]: value });
@@ -64,12 +77,12 @@ export const SignInForm = () => {
       <h2>Already have an account?</h2>
       <span>Sign in with your email and password</span>
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={onSubmitHandler}>
         <FormInput
           label="Email"
           type="email"
           required
-          onChange={handleChange}
+          onChange={onChangeHandler}
           name="email"
           value={email}
         />
@@ -78,7 +91,7 @@ export const SignInForm = () => {
           label="Password"
           type="password"
           required
-          onChange={handleChange}
+          onChange={onChangeHandler}
           name="password"
           value={password}
           autoComplete="Password"
