@@ -1,5 +1,8 @@
 // React components
-import { useState } from "react";
+import { useState, useContext } from "react";
+
+// Application contexts
+import { UserContext } from "../../context/userContext";
 
 // Firebase components
 import {
@@ -23,6 +26,9 @@ const defaultFormFields = {
 };
 
 export const SignUpForm = () => {
+  // Gets the setter hook from the context UserContext
+  const { setCurrentUser } = useContext(UserContext);
+
   // Creates the variable formFields and destructures its values
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
@@ -30,7 +36,8 @@ export const SignUpForm = () => {
   /*
     Event handler for the onSubmit event of the form.
     Calls the methods of Firebase to create a new auth user and new 
-    record in the collection and once finished clears the inputs.
+    record in the collection and updates the state of UserContext 
+    once finished clears the inputs.
   */
   const onSubmitHandler = async (event) => {
     event.preventDefault();
@@ -41,6 +48,7 @@ export const SignUpForm = () => {
       const response = await createUserWithEmailPassword(email, password);
       const { user } = response;
 
+      setCurrentUser(user);
       createUserDocument(user, { displayname: displayName });
     } catch (e) {
       console.log(`Error in user creation ${e.message}`);
@@ -95,8 +103,8 @@ export const SignUpForm = () => {
         <FormInput
           label="Confirm password"
           name="confirmPassword"
-          type="confirmPassword"
-          value={password}
+          type="password"
+          value={confirmPassword}
           onChange={onChangeHandler}
           required
           autoComplete="Confirm password"

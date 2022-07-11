@@ -11,6 +11,7 @@ import { initializeApp } from "firebase/app";
   from email and password in firebase.
   signInWithEmailAndPassword is the method that sign in a user if exists with
   email and password.
+  signOut is the function that will sign out the user in the firebase server.
 */
 import {
   GoogleAuthProvider,
@@ -18,6 +19,7 @@ import {
   signInWithPopup,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signOut,
 } from "firebase/auth";
 
 /*
@@ -107,3 +109,6 @@ export const signInAuthUserWithEmailAndPassword = async (email, password) => {
 
   return await signInWithEmailAndPassword(auth, email, password);
 };
+
+// Calls the method signOut
+export const signOutUser = () => signOut(auth);

@@ -1,5 +1,8 @@
 // React components
-import { useState } from "react";
+import { useState, useContext } from "react";
+
+// Application contexts
+import { UserContext } from "../../context/userContext";
 
 // Firebase components
 import {
@@ -22,6 +25,9 @@ const defaultFormFields = {
 };
 
 export const SignInForm = () => {
+  // Gets the setter hook from the context UserContext
+  const { setCurrentUser } = useContext(UserContext);
+
   // Creates the variable formFields and destructures its values
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
@@ -33,20 +39,21 @@ export const SignInForm = () => {
   };
 
   /*
-    Event handler for the onSubmit event of the form.
-    Calls the methods of Firebase to log-in an auth user and
-    checks for the errors associated with log-in.
+    Event handler for the onSubmit event of the form
+    Calls the methods of Firebase to log-in an auth user,
+    updates the user's context, reset the form values 
+    and checks for the errors associated with log-in
   */
   const onSubmitHandler = async (event) => {
     event.preventDefault();
 
     try {
-      const response = await signInAuthUserWithEmailAndPassword(
+      const { user } = await signInAuthUserWithEmailAndPassword(
         email,
         password
       );
-      console.log(response);
 
+      setCurrentUser(user);
       setFormFields(defaultFormFields);
     } catch (error) {
       switch (error.code) {
