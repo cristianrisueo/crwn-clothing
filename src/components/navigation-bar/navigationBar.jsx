@@ -16,13 +16,7 @@ import "./navigationBar.scss";
 
 export const NavigationBar = () => {
   // Gets the currentUser value from the user context
-  const { currentUser, setCurrentUser } = useContext(UserContext);
-
-  // Signs out a user from Firebase and resets the user context
-  const signOut = async () => {
-    await signOutUser();
-    setCurrentUser(null);
-  };
+  const { currentUser } = useContext(UserContext);
 
   return (
     <>
@@ -35,7 +29,7 @@ export const NavigationBar = () => {
             SHOP
           </Link>
           {currentUser ? (
-            <span className="link" onClick={signOut}>
+            <span className="link" onClick={signOutUser}>
               SIGN-OUT
             </span>
           ) : (

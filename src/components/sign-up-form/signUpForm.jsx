@@ -1,8 +1,5 @@
 // React components
-import { useState, useContext } from "react";
-
-// Application contexts
-import { UserContext } from "../../context/userContext";
+import { useState } from "react";
 
 // Firebase components
 import {
@@ -26,9 +23,6 @@ const defaultFormFields = {
 };
 
 export const SignUpForm = () => {
-  // Gets the setter hook from the context UserContext
-  const { setCurrentUser } = useContext(UserContext);
-
   // Creates the variable formFields and destructures its values
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
@@ -48,7 +42,6 @@ export const SignUpForm = () => {
       const response = await createUserWithEmailPassword(email, password);
       const { user } = response;
 
-      setCurrentUser(user);
       createUserDocument(user, { displayname: displayName });
     } catch (e) {
       console.log(`Error in user creation ${e.message}`);

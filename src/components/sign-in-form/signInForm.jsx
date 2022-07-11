@@ -1,13 +1,9 @@
 // React components
-import { useState, useContext } from "react";
-
-// Application contexts
-import { UserContext } from "../../context/userContext";
+import { useState } from "react";
 
 // Firebase components
 import {
   googleSignInWithPopup,
-  createUserDocument,
   signInAuthUserWithEmailAndPassword,
 } from "../../utils/firebase/firebase";
 
@@ -25,18 +21,13 @@ const defaultFormFields = {
 };
 
 export const SignInForm = () => {
-  // Gets the setter hook from the context UserContext
-  const { setCurrentUser } = useContext(UserContext);
-
   // Creates the variable formFields and destructures its values
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
 
   // Sign in with google popup method
   const signInWithGoogle = async () => {
-    const { user } = await googleSignInWithPopup();
-    setCurrentUser(user);
-    await createUserDocument(user);
+    await googleSignInWithPopup();
   };
 
   /*
@@ -49,12 +40,7 @@ export const SignInForm = () => {
     event.preventDefault();
 
     try {
-      const { user } = await signInAuthUserWithEmailAndPassword(
-        email,
-        password
-      );
-
-      setCurrentUser(user);
+      await signInAuthUserWithEmailAndPassword(email, password);
       setFormFields(defaultFormFields);
     } catch (error) {
       switch (error.code) {

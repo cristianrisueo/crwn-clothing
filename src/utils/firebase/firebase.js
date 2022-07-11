@@ -3,15 +3,17 @@ import { initializeApp } from "firebase/app";
 
 /* 
   Libraries needed for authentication
-  getAuth is the instance of our Auth application in Firebase.
-  GoogleAuthProvider is the provider needed to get the authtoken from Google
+  - getAuth is the instance of our Auth application in Firebase.
+  - GoogleAuthProvider is the provider needed to get the authtoken from Google
   server and to check that token once it's sent back.
-  signInWithPopup is the function that will be executed in the frontend to auth.
-  createUserWithEmailAndPassword is the method to create an authenticated user 
+  - signInWithPopup is the function that will be executed in the frontend to auth.
+  - createUserWithEmailAndPassword is the method to create an authenticated user 
   from email and password in firebase.
-  signInWithEmailAndPassword is the method that sign in a user if exists with
+  - signInWithEmailAndPassword is the method that sign in a user if exists with
   email and password.
-  signOut is the function that will sign out the user in the firebase server.
+  - signOut is the function that will sign out the user in the firebase server.
+  - onAuthStateChanged is a listener that is called when the state of the 
+  authorizationis changed.
 */
 import {
   GoogleAuthProvider,
@@ -20,6 +22,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
+  onAuthStateChanged,
 } from "firebase/auth";
 
 /*
@@ -94,6 +97,12 @@ export const createUserDocument = async (
       console.error(`Error creating the user ${e.message}`);
     }
   }
+
+  /*
+    Always returns the user document: if exists returns it
+    otherwise returns the just created
+  */
+  return userDocument;
 };
 
 // Creates an authenticated user in firebase
@@ -110,5 +119,13 @@ export const signInAuthUserWithEmailAndPassword = async (email, password) => {
   return await signInWithEmailAndPassword(auth, email, password);
 };
 
-// Calls the method signOut
+// Calls the method signOut to sign out from firebase
 export const signOutUser = () => signOut(auth);
+
+/*
+  Calls the method onAuthStateChanged from Firebase passing auth
+  which is the state that changes and callback which is the callback
+  function that will be executed when it changes.
+*/
+export const onAuthStateChangedListener = (callback) =>
+  onAuthStateChanged(auth, callback);
