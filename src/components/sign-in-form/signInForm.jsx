@@ -35,6 +35,7 @@ export const SignInForm = () => {
   // Sign in with google popup method
   const signInWithGoogle = async () => {
     const { user } = await googleSignInWithPopup();
+    setCurrentUser(user);
     await createUserDocument(user);
   };
 
