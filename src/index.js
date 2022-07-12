@@ -5,6 +5,8 @@ import { BrowserRouter } from "react-router-dom";
 
 // Application contexts
 import { UserProvider } from "./context/userContext";
+import { ProductsProvider } from "./context/productsContext";
+import { CartProvider } from "./context/cartContext";
 
 // Application components
 import { App } from "./components/app/App";
@@ -17,7 +19,11 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <UserProvider>
-        <App />
+        <ProductsProvider>
+          <CartProvider>
+            <App />
+          </CartProvider>
+        </ProductsProvider>
       </UserProvider>
     </BrowserRouter>
   </React.StrictMode>

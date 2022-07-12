@@ -4,9 +4,14 @@ import { Outlet, Link } from "react-router-dom";
 
 // Application contexts
 import { UserContext } from "../../context/userContext";
+import { CartContext } from "../../context/cartContext";
 
 // Firebase components
 import { signOutUser } from "../../utils/firebase/firebase";
+
+// Application components
+import { CartIcon } from "../cart-icon/cartIcon";
+import { CartDropdown } from "../cart-dropdown/cartDropdown";
 
 // Logo component
 import { ReactComponent as CrwnLogo } from "../../assets/crown.svg";
@@ -17,6 +22,14 @@ import "./navigationBar.scss";
 export const NavigationBar = () => {
   // Gets the currentUser value from the user context
   const { currentUser } = useContext(UserContext);
+
+  // Get the data from the CartContext
+  const { isCartOpened, setIsCartOpened } = useContext(CartContext);
+
+  // Updates the state of the cart dropdown
+  const updateIsCartOpened = () => {
+    setIsCartOpened(!isCartOpened);
+  };
 
   return (
     <>
@@ -37,8 +50,11 @@ export const NavigationBar = () => {
               SIGN-IN
             </Link>
           )}
+          <CartIcon onClickHandler={updateIsCartOpened} />
         </div>
+        {isCartOpened && <CartDropdown />}
       </div>
+
       <Outlet />
     </>
   );
