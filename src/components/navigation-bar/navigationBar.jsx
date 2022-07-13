@@ -24,7 +24,8 @@ export const NavigationBar = () => {
   const { currentUser } = useContext(UserContext);
 
   // Get the data from the CartContext
-  const { isCartOpened, setIsCartOpened } = useContext(CartContext);
+  const { isCartOpened, setIsCartOpened, cartCounter } =
+    useContext(CartContext);
 
   // Updates the state of the cart dropdown
   const updateIsCartOpened = () => {
@@ -50,7 +51,10 @@ export const NavigationBar = () => {
               SIGN-IN
             </Link>
           )}
-          <CartIcon onClickHandler={updateIsCartOpened} />
+          <CartIcon
+            onClickHandler={updateIsCartOpened}
+            cartCounter={cartCounter}
+          />
         </div>
         {isCartOpened && <CartDropdown />}
       </div>

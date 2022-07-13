@@ -1,11 +1,25 @@
+// React components
+import { useContext } from "react";
+
 // Application components
 import { Button } from "../button/button";
+
+// Application context
+import { CartContext } from "../../context/cartContext";
 
 // Styles
 import "./productCard.scss";
 
 export const ProductCard = ({ product }) => {
+  // Destructured product
   const { name, imageUrl, price } = product;
+
+  // Method from the context that adds the product to cart
+  const { addItemToCart } = useContext(CartContext);
+
+  // onClick handler that adds the product to cart
+  const onClickHandler = () => addItemToCart(product);
+
   return (
     <div className="product-card">
       <img src={imageUrl} alt={name} />
@@ -15,7 +29,12 @@ export const ProductCard = ({ product }) => {
         <span className="price">{price}</span>
       </div>
 
-      <Button text="Add to cart" buttonType="inverted" />
+      <Button
+        text="Add to cart"
+        buttonType="inverted"
+        onClick={onClickHandler}
+      />
     </div>
   );
 };
+
