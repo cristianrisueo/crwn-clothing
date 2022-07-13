@@ -27,12 +27,24 @@ import {
 
 /*
   Libraries needed to store in the DB  
-  getFirestore is the instance of our Firestore application in Firebase.
-  doc retrieves documents from the Firestore collection.
-  getDoc gets the document data once we used doc.
-  setDoc sets the document data once we used doc.
+  - getFirestore is the instance of our Firestore application in Firebase.
+  - doc retrieves documents from the Firestore collection.
+  - getDoc gets the document data once we used doc.
+  - setDoc sets the document data once we used doc.
+  - collection allow us to get a colletion from Firebase.
+  - query allow us to use queries that interact with the collection.
+  - getDocs allow us to retrieve all the documents of collection using query.
 */
-import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  setDoc,
+  collection,
+  writeBatch,
+  query,
+  getDocs,
+} from "firebase/firestore";
 
 // Configuration of Firebase
 const firebaseConfig = {
@@ -65,7 +77,7 @@ export const auth = getAuth();
 export const googleSignInWithPopup = () =>
   signInWithPopup(auth, googleProvider);
 
-// Instance of the Firestore collection
+// Instance of Firestore
 const firestoreDB = getFirestore();
 
 // Function to create a new document in the collection users
@@ -129,3 +141,59 @@ export const signOutUser = () => signOut(auth);
 */
 export const onAuthStateChangedListener = (callback) =>
   onAuthStateChanged(auth, callback);
+
+/*
+  This function creates updates a collection with the documents passed
+  If the collection doesn't exist then creates a new one.
+*/
+export const addCollectionAndDocuments = async (
+  collectionName,
+  documentsToAdd
+) => {
+  // Gets the collection reference even if doesn't exist'
+  const collectionReference = collection(firestoreDB, collectionName);
+
+  // Loads the batch to work with the collections of Firestore
+  const batchScript = writeBatch(firestoreDB);
+
+  /*
+    Foreach document to add in the file get the reference of that document
+    which is the title and write that document with it's data in the collec.
+  */
+  documentsToAdd.forEach((document) => {
+    const documentReference = doc(
+      collectionReference,
+      document.title.toLowerCase()
+    );
+
+    batchScript.set(documentReference, document);
+  });
+
+  // Await until finishe
+  await batchScript.commit();
+};
+
+// Function that retrieves the documents from a collection of Firestore
+export const getCategoriesAndDocuments = async () => {
+  // Gets the collection reference
+  const collectionReference = collection(firestoreDB, "categories");
+
+  // Generates the query to return and documents
+  const myQuery = query(collectionReference);
+  const documentsArray = await getDocs(myQuery);
+
+  // Object with the documents
+  const categoriesObject = documentsArray.docs.reduce(
+    (categoriesArray, documentsArray) => {
+      // Destructures the documents array
+      const { title, items } = documentsArray.data();
+
+      // Sets the new array of categories and returns it
+      categoriesArray[title.toLowerCase()] = items;
+      return categoriesArray;
+    },
+    {}
+  );
+
+  return categoriesObject;
+};

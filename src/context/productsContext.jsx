@@ -1,12 +1,12 @@
 // React components
 import { createContext, useState, useEffect } from "react";
 
-// Products data
-import PRODUCTS_DATA from "../assets/shop-data.json";
+// Application contexts
+import { getCategoriesAndDocuments } from "../utils/firebase/firebase";
 
 // Values we want to store: Here we define the values
 export const ProductsContext = createContext({
-  products: [],
+  products: {},
 });
 
 /*
@@ -15,10 +15,17 @@ export const ProductsContext = createContext({
 */
 export const ProductsProvider = ({ children }) => {
   // Variable and setter that holds the user data
-  const [products, setProducts] = useState(PRODUCTS_DATA);
+  const [products, setProducts] = useState({});
 
-  // componentDidMount doesn't do anything yet
-  useEffect(() => {}, []);
+  // Returns the categories and products
+  useEffect(() => {
+    const getCategories = async () => {
+      const categoriesArray = await getCategoriesAndDocuments();
+      setProducts(categoriesArray);
+    };
+
+    getCategories();
+  }, []);
 
   // Creates the value variable and returns it in the provider
   const productsValue = { products };
