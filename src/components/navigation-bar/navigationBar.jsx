@@ -1,6 +1,6 @@
 // React components
 import { useContext } from "react";
-import { Outlet, Link } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 
 // Application contexts
 import { UserContext } from "../../context/userContext";
@@ -16,8 +16,13 @@ import { CartDropdown } from "../cart-dropdown/cartDropdown";
 // Logo component
 import { ReactComponent as CrwnLogo } from "../../assets/crown.svg";
 
-// Styles
-import "./navigationBar.scss";
+// Styled components
+import {
+  NavigationBarStyles,
+  LogoContainerStyles,
+  LinksContainerStyles,
+  LinkStyles,
+} from "./navigationBar.styles.jsx";
 
 export const NavigationBar = () => {
   // Gets the currentUser value from the user context
@@ -34,30 +39,26 @@ export const NavigationBar = () => {
 
   return (
     <>
-      <div className="navigation-bar">
-        <Link className="logo-container" to="/">
+      <NavigationBarStyles>
+        <LogoContainerStyles to="/">
           <CrwnLogo className="logo" />
-        </Link>
-        <div className="links-container">
-          <Link className="link" to="shop">
-            SHOP
-          </Link>
+        </LogoContainerStyles>
+        <LinksContainerStyles>
+          <LinkStyles to="shop">SHOP</LinkStyles>
           {currentUser ? (
-            <span className="link" onClick={signOutUser}>
+            <LinkStyles as="span" className="link" onClick={signOutUser}>
               SIGN-OUT
-            </span>
+            </LinkStyles>
           ) : (
-            <Link className="link" to="auth">
-              SIGN-IN
-            </Link>
+            <LinkStyles to="auth">SIGN-IN</LinkStyles>
           )}
           <CartIcon
             onClickHandler={updateIsCartOpened}
             cartCounter={cartCounter}
           />
-        </div>
+        </LinksContainerStyles>
         {isCartOpened && <CartDropdown />}
-      </div>
+      </NavigationBarStyles>
 
       <Outlet />
     </>
