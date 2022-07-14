@@ -9,9 +9,7 @@ export const CartIcon = ({ onClickHandler, cartCounter }) => {
   return (
     <CartIconStyles onClick={onClickHandler}>
       <ShoppingIconStyles />
-      <ItemsCountStyles as="span" className="items-count">
-        {cartCounter}
-      </ItemsCountStyles>
+      <ItemsCountStyles as="span">{cartCounter}</ItemsCountStyles>
     </CartIconStyles>
   );
 };
