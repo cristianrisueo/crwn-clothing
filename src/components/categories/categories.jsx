@@ -2,15 +2,15 @@
 import { Category } from "../category/category";
 
 // Styles
-import "./categories.scss";
+import { CategoriesContainerStyles } from "./categories.styles";
 
 export const Categories = ({ categories }) => {
   return (
-    <div className="categories-container">
+    <CategoriesContainerStyles>
       {/* Categories render */}
       {categories.map((category) => {
         return <Category key={category.id} category={category} />;
       })}
-    </div>
+    </CategoriesContainerStyles>
   );
 };

@@ -8,8 +8,11 @@ import { ProductsContext } from "../../context/productsContext";
 // Application components
 import { ProductCard } from "../../components/product-card/productCard";
 
-// Styles
-import "./category.scss";
+// Styled components
+import {
+  CategoryContainerStyles,
+  CategoryTitleStyles,
+} from "./category.styles";
 
 export const Category = () => {
   // Title of the category
@@ -28,13 +31,15 @@ export const Category = () => {
 
   return (
     <>
-      <h2 className="category-title">{category.toUpperCase()}</h2>
-      <div className="category-container">
+      <CategoryTitleStyles as="h2">
+        {category.toUpperCase()}
+      </CategoryTitleStyles>
+      <CategoryContainerStyles>
         {categoryProducts &&
           categoryProducts.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
-      </div>
+      </CategoryContainerStyles>
     </>
   );
 };

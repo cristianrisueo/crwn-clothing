@@ -1,0 +1,21 @@
+CSS replaced for styled components completed:
+    - components:
+        - cart-dropdown
+        - cart-icon
+        - cart-item
+        - categories
+        - category          -> Get from GitHub
+        - category-preview
+        - checkout-item     -> Get from GitHub
+        - form-input        -> Get from GitHub
+        - navigation-bar
+        - sign-in-form
+        - sign-up-form
+    
+    - routes
+        - authentication
+        - categories-preview
+        - category
+        - checkout
+        - home
+        - shop

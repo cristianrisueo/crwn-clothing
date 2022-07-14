@@ -1,14 +1,17 @@
-// Logo component
-import { ReactComponent as ShoppingIcon } from "../../assets/shopping-bag.svg";
-
 // Styles
-import "./cartIcon.scss";
+import {
+  CartIconStyles,
+  ShoppingIconStyles,
+  ItemsCountStyles,
+} from "./cartIcon.styles";
 
 export const CartIcon = ({ onClickHandler, cartCounter }) => {
   return (
-    <div className="cart-icon" onClick={onClickHandler}>
-      <ShoppingIcon className="shopping-icon" />
-      <span className="items-count">{cartCounter}</span>
-    </div>
+    <CartIconStyles onClick={onClickHandler}>
+      <ShoppingIconStyles />
+      <ItemsCountStyles as="span" className="items-count">
+        {cartCounter}
+      </ItemsCountStyles>
+    </CartIconStyles>
   );
 };

@@ -12,7 +12,11 @@ import { FormInput } from "../form-input/formInput";
 import { Button } from "../button/button";
 
 // Styles
-import "./signInForm.scss";
+import {
+  SignUpContainerStyles,
+  H2Styles,
+  ButtonsContainerStyles,
+} from "./signInForm.styles";
 
 // Inital values for the variable formFields
 const defaultFormFields = {
@@ -67,8 +71,8 @@ export const SignInForm = () => {
   };
 
   return (
-    <div className="sign-up-container">
-      <h2>Already have an account?</h2>
+    <SignUpContainerStyles>
+      <H2Styles as="h2">Already have an account?</H2Styles>
       <span>Sign in with your email and password</span>
 
       <form onSubmit={onSubmitHandler}>
@@ -90,7 +94,7 @@ export const SignInForm = () => {
           value={password}
           autoComplete="Password"
         />
-        <div className="buttons-container">
+        <ButtonsContainerStyles>
           <Button text="Sign In" type="submit" />
           <Button
             text="Google sign in"
@@ -98,8 +102,8 @@ export const SignInForm = () => {
             buttonType="google"
             onClick={signInWithGoogle}
           />
-        </div>
+        </ButtonsContainerStyles>
       </form>
-    </div>
+    </SignUpContainerStyles>
   );
 };

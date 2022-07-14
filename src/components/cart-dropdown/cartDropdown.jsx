@@ -9,8 +9,8 @@ import { CartItem } from "../cart-item/cartItem";
 // Application contexts
 import { CartContext } from "../../context/cartContext";
 
-// Styles
-import "./cartDropdown.scss";
+// Styled components
+import { CartDropdownStyles, CartItemsStyles } from "./cartDropdown.styles";
 
 export const CartDropdown = () => {
   const { cartItems } = useContext(CartContext);
@@ -21,14 +21,14 @@ export const CartDropdown = () => {
   };
 
   return (
-    <div className="cart-dropdown">
-      <div className="cart-items">
+    <CartDropdownStyles>
+      <CartItemsStyles>
         {cartItems.map((item) => (
           <CartItem key={item.id} product={item} />
         ))}
-      </div>
+      </CartItemsStyles>
 
       <Button text="Checkout" onClick={goToCheckout} />
-    </div>
+    </CartDropdownStyles>
   );
 };

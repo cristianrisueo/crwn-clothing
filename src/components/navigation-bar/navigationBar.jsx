@@ -22,7 +22,7 @@ import {
   LogoContainerStyles,
   LinksContainerStyles,
   LinkStyles,
-} from "./navigationBar.styles.jsx";
+} from "./navigationBar.styles";
 
 export const NavigationBar = () => {
   // Gets the currentUser value from the user context
