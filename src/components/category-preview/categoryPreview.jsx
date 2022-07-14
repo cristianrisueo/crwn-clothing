@@ -1,3 +1,6 @@
+// React components
+import { Link } from "react-router-dom";
+
 // Application components
 import { ProductCard } from "../../components/product-card/productCard";
 
@@ -7,9 +10,11 @@ import "./categoryPreview.scss";
 export const CategoryPreview = ({ title, products }) => {
   return (
     <div className="category-preview">
-      <h2>
-        <span className="title">{title.toUpperCase()}</span>
-      </h2>
+      <Link to={title}>
+        <h2 className="title">
+          <span>{title.toUpperCase()}</span>
+        </h2>
+      </Link>
       <div className="preview">
         {products
           .filter((_, index) => index < 4)

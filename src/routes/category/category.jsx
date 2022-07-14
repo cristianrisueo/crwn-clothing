@@ -27,11 +27,14 @@ export const Category = () => {
   }, [category, products]);
 
   return (
-    <div className="category-container">
-      {categoryProducts &&
-        categoryProducts.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-    </div>
+    <>
+      <h2 className="category-title">{category.toUpperCase()}</h2>
+      <div className="category-container">
+        {categoryProducts &&
+          categoryProducts.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+      </div>
+    </>
   );
 };
