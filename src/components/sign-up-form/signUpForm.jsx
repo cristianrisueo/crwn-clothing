@@ -103,7 +103,7 @@ export const SignUpForm = () => {
           autoComplete="Confirm password"
         />
 
-        <Button text="Sign Up" buttonType="default" type="submit" />
+        <Button text="Sign Up" type="submit" />
       </form>
     </SignUpFormStyles>
   );

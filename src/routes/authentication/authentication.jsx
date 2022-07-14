@@ -2,7 +2,7 @@
 import { SignUpForm } from "../../components/sign-up-form/signUpForm";
 import { SignInForm } from "../../components/sign-in-form/signInForm";
 
-// Styles
+// Styled components
 import { AuthenticationContainerStyles } from "./authentication.styles";
 
 export const Authentication = () => {
