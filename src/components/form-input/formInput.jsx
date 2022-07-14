@@ -1,19 +1,19 @@
-// Styles
-import "./formInput.scss";
+// Styled components
+import {
+  FormInputLabelStyles,
+  InputStyles,
+  GroupStyles,
+} from "./formInput.styles";
 
 export const FormInput = ({ label, ...inputOptions }) => {
   return (
-    <div className="group">
-      <input className="form-input" {...inputOptions} />
+    <GroupStyles>
+      <InputStyles {...inputOptions} />
       {label && (
-        <label
-          className={`${
-            inputOptions.value.length ? "shrink" : ""
-          } form-input-label`}
-        >
+        <FormInputLabelStyles shrink={inputOptions.value.length}>
           {label}
-        </label>
+        </FormInputLabelStyles>
       )}
-    </div>
+    </GroupStyles>
   );
 };

@@ -9,7 +9,7 @@ import {
 
 // Application components
 import { FormInput } from "../form-input/formInput";
-import { Button } from "../button/button";
+import { Button, BUTTON_TYPE_CLASS } from "../button/button";
 
 // Styles
 import {
@@ -99,7 +99,7 @@ export const SignInForm = () => {
           <Button
             text="Google sign in"
             type="button"
-            buttonType="google"
+            buttonType={BUTTON_TYPE_CLASS.google}
             onClick={signInWithGoogle}
           />
         </ButtonsContainerStyles>

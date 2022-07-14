@@ -2,7 +2,7 @@
 import { useContext } from "react";
 
 // Application components
-import { Button } from "../button/button";
+import { Button, BUTTON_TYPE_CLASS } from "../button/button";
 
 // Application context
 import { CartContext } from "../../context/cartContext";
@@ -31,10 +31,9 @@ export const ProductCard = ({ product }) => {
 
       <Button
         text="Add to cart"
-        buttonType="inverted"
+        buttonType={BUTTON_TYPE_CLASS.inverted}
         onClick={onClickHandler}
       />
     </div>
   );
 };
-
