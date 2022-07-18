@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { Outlet } from "react-router-dom";
 
 // Application contexts
-import { UserContext } from "../../context/userContext";
+import { UserContext } from "../../reducers/userReducer";
 import { CartContext } from "../../context/cartContext";
 
 // Firebase components

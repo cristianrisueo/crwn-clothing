@@ -4,7 +4,7 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 
 // Application contexts
-import { UserProvider } from "./context/userContext";
+import { UserProvider } from "./reducers/userReducer";
 import { ProductsProvider } from "./context/productsContext";
 import { CartProvider } from "./context/cartContext";
 
