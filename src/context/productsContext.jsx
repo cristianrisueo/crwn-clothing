@@ -1,7 +1,7 @@
 // React components
 import { createContext, useState, useEffect } from "react";
 
-// Application contexts
+// Firebase components
 import { getCategoriesAndDocuments } from "../utils/firebase/firebase";
 
 // Values we want to store: Here we define the values

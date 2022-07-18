@@ -1,15 +1,12 @@
-// React components
-import { useContext } from "react";
-
-// Products context
-import { ProductsContext } from "../../context/productsContext";
+// Redux components
+import { useSelector } from "react-redux";
 
 // Application components
 import { CategoryPreview } from "../../components/category-preview/categoryPreview";
 
 export const CategoriesPreview = () => {
-  // Get the products from the context
-  const { products } = useContext(ProductsContext);
+  // Gets the products value from the store
+  const products = useSelector((state) => state.products.products);
 
   return (
     <>
