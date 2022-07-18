@@ -7,7 +7,7 @@ import { Button } from "../button/button";
 import { CartItem } from "../cart-item/cartItem";
 
 // Application contexts
-import { CartContext } from "../../context/cartContext";
+import { CartContext } from "../../reducers/cartReducer";
 
 // Styled components
 import { CartDropdownStyles, CartItemsStyles } from "./cartDropdown.styles";

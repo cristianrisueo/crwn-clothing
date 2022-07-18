@@ -4,7 +4,7 @@ import { Outlet } from "react-router-dom";
 
 // Application contexts
 import { UserContext } from "../../reducers/userReducer";
-import { CartContext } from "../../context/cartContext";
+import { CartContext } from "../../reducers/cartReducer";
 
 // Firebase components
 import { signOutUser } from "../../utils/firebase/firebase";

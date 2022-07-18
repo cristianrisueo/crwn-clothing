@@ -2,7 +2,7 @@
 import { useContext, useEffect } from "react";
 
 // Application contexts
-import { CartContext } from "../../context/cartContext";
+import { CartContext } from "../../reducers/cartReducer";
 
 // Application components
 import { CheckoutItem } from "../../components/checkout-item/checkoutItem";

@@ -6,7 +6,7 @@ import { BrowserRouter } from "react-router-dom";
 // Application contexts
 import { UserProvider } from "./reducers/userReducer";
 import { ProductsProvider } from "./context/productsContext";
-import { CartProvider } from "./context/cartContext";
+import { CartProvider } from "./reducers/cartReducer";
 
 // Application components
 import { App } from "./components/app/App";
