@@ -3,7 +3,6 @@ import { useContext } from "react";
 import { Outlet } from "react-router-dom";
 
 // Application contexts
-import { UserContext } from "../../reducers/userReducer";
 import { CartContext } from "../../reducers/cartReducer";
 
 // Firebase components
@@ -24,9 +23,12 @@ import {
   LinkStyles,
 } from "./navigationBar.styles";
 
+// Redux components
+import { useSelector } from "react-redux";
+
 export const NavigationBar = () => {
   // Gets the currentUser value from the user context
-  const { currentUser } = useContext(UserContext);
+  const currentUser = useSelector((state) => state.user.currentUser);
 
   // Get the data from the CartContext
   const { isCartOpened, setIsCartOpened, cartCounter } =
