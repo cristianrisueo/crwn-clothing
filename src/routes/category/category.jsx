@@ -1,6 +1,9 @@
 // React components
-import { useState, useEffect } from "react";
+import { useContext, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+
+// Application contexts
+import { ProductsContext } from "../../context/productsContext";
 
 // Application components
 import { ProductCard } from "../../components/product-card/productCard";
@@ -11,15 +14,12 @@ import {
   CategoryTitleStyles,
 } from "./category.styles";
 
-// Redux components
-import { useSelector } from "react-redux";
-
 export const Category = () => {
   // Title of the category
   const { category } = useParams();
 
-  // Gets the products value from the store
-  const products = useSelector((state) => state.products.products);
+  // All the products from all the categories
+  const { products } = useContext(ProductsContext);
 
   // Only the products that we want
   const [categoryProducts, setCategoryProducts] = useState([]);
