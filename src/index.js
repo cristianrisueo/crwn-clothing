@@ -3,8 +3,11 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 
+// Redux components
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
+
 // Application contexts
-import { UserProvider } from "./reducers/userReducer";
 import { ProductsProvider } from "./context/productsContext";
 import { CartProvider } from "./reducers/cartReducer";
 
@@ -17,14 +20,14 @@ import "./index.scss";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <UserProvider>
+    <Provider store={store}>
+      <BrowserRouter>
         <ProductsProvider>
           <CartProvider>
             <App />
           </CartProvider>
         </ProductsProvider>
-      </UserProvider>
-    </BrowserRouter>
+      </BrowserRouter>
+    </Provider>
   </React.StrictMode>
 );
