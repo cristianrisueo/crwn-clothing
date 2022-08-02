@@ -3,7 +3,7 @@ import { PRODUCTS_TYPES_ACTIONS } from "./productsTypes";
 
 // Initial state of the reducer
 const INITIAL_STATE = {
-  products: {},
+  products: [],
 };
 
 export const productsReducer = (state = INITIAL_STATE, action) => {
