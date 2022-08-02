@@ -1,9 +1,9 @@
 // React components
-import { useContext, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-// Application contexts
-import { ProductsContext } from "../../context/productsContext";
+// Redux components
+import { useSelector } from "react-redux";
 
 // Application components
 import { ProductCard } from "../../components/product-card/productCard";
@@ -19,7 +19,7 @@ export const Category = () => {
   const { category } = useParams();
 
   // All the products from all the categories
-  const { products } = useContext(ProductsContext);
+  const { products } = useSelector((state) => state.products);
 
   // Only the products that we want
   const [categoryProducts, setCategoryProducts] = useState([]);
