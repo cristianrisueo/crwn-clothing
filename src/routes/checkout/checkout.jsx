@@ -1,8 +1,17 @@
 // React components
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 
-// Application contexts
-import { CartContext } from "../../reducers/cartReducer";
+// Redux components
+import { useSelector, useDispatch } from "react-redux";
+
+import {
+  selectCartItems,
+  selectCartTotal,
+} from "../../redux/cart/cartSelector";
+
+import {
+  setIsCartOpen,
+} from "../../redux/cart/cartAction";
 
 // Application components
 import { CheckoutItem } from "../../components/checkout-item/checkoutItem";
@@ -16,17 +25,12 @@ import {
 } from "./checkout.styles";
 
 export const Checkout = () => {
-  const {
-    setIsCartOpened,
-    cartItems,
-    addItemToCart,
-    removeItemFromCart,
-    clearItemFromCart,
-    checkoutTotalPrice,
-  } = useContext(CartContext);
+  const dispatch = useDispatch();
+  const cartItems = useSelector(selectCartItems);
+  const cartTotal = useSelector(selectCartTotal);
 
   useEffect(() => {
-    setIsCartOpened(false);
+    dispatch(setIsCartOpen(false));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -51,18 +55,10 @@ export const Checkout = () => {
       </CheckoutHeaderStyles>
 
       {cartItems.map((item) => {
-        return (
-          <CheckoutItem
-            key={item.id}
-            item={item}
-            addItem={addItemToCart}
-            removeItem={removeItemFromCart}
-            clearItem={clearItemFromCart}
-          />
-        );
+        return <CheckoutItem key={item.id} item={item} />;
       })}
 
-      <TotalStyles as="span">Total: {checkoutTotalPrice}</TotalStyles>
+      <TotalStyles as="span">Total: {cartTotal}</TotalStyles>
     </CheckoutContainerStyles>
   );
 };

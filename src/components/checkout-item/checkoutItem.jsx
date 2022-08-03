@@ -1,3 +1,12 @@
+// Redux components
+import { useSelector, useDispatch } from "react-redux";
+import { selectCartItems } from "../../redux/cart/cartSelector";
+import {
+  addItemToCart,
+  removeItemFromCart,
+  clearItemFromCart,
+} from "../../redux/cart/cartAction";
+
 // Styled components
 import {
   CheckoutItemStyles,
@@ -11,14 +20,26 @@ import {
   RemoveButtonStyles,
 } from "./checkoutItem.styles";
 
-export const CheckoutItem = ({ item, addItem, removeItem, clearItem }) => {
+export const CheckoutItem = ({ item }) => {
   // Destructures the item
   const { name, imageUrl, quantity, price } = item;
 
-  // Handler for the actions: Increase, decrement and remove
-  const clearItemHandler = () => clearItem(item);
-  const addItemHandler = () => addItem(item);
-  const removeItemHandler = () => removeItem(item);
+  const dispatch = useDispatch();
+  const cartItems = useSelector(selectCartItems);
+
+  // Handlers
+
+  const addItemHandler = () => {
+    dispatch(addItemToCart(cartItems, item));
+  };
+
+  const removeItemHandler = () => {
+    dispatch(removeItemFromCart(cartItems, item));
+  };
+
+  const clearItemHandler = () => {
+    dispatch(clearItemFromCart(cartItems, item));
+  };
 
   return (
     <CheckoutItemStyles>

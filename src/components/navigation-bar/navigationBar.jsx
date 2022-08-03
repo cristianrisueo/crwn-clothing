@@ -1,12 +1,10 @@
 // React components
-import { useContext } from "react";
 import { Outlet } from "react-router-dom";
 
 // Redux components
-import { useSelector } from "react-redux";
-
-// Application contexts
-import { CartContext } from "../../reducers/cartReducer";
+import { useSelector, useDispatch } from "react-redux";
+import { selectIsCartOpen } from "../../redux/cart/cartSelector";
+import { setIsCartOpen } from "../../redux/cart/cartAction";
 
 // Firebase components
 import { signOutUser } from "../../utils/firebase/firebase";
@@ -27,16 +25,18 @@ import {
 } from "./navigationBar.styles";
 
 export const NavigationBar = () => {
+  // Instance of dispatch
+  const dispatch = useDispatch();
+
   // Gets the currentUser value from the user state
   const { currentUser } = useSelector((state) => state.user);
 
-  // Get the data from the CartContext
-  const { isCartOpened, setIsCartOpened, cartCounter } =
-    useContext(CartContext);
+  // Gets the current value of the cart toogle
+  const isCartOpen = useSelector(selectIsCartOpen);
 
   // Updates the state of the cart dropdown
   const updateIsCartOpened = () => {
-    setIsCartOpened(!isCartOpened);
+    dispatch(setIsCartOpen(!isCartOpen));
   };
 
   return (
@@ -54,12 +54,9 @@ export const NavigationBar = () => {
           ) : (
             <LinkStyles to="auth">SIGN-IN</LinkStyles>
           )}
-          <CartIcon
-            onClickHandler={updateIsCartOpened}
-            cartCounter={cartCounter}
-          />
+          <CartIcon onClickHandler={updateIsCartOpened} />
         </LinksContainerStyles>
-        {isCartOpened && <CartDropdown />}
+        {isCartOpen && <CartDropdown />}
       </NavigationBarStyles>
 
       <Outlet />
