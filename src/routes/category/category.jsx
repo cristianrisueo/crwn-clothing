@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 
 // Application components
 import { ProductCard } from "../../components/product-card/productCard";
+import { Spinner } from "../../components/spinner/spinner";
 
 // Styled components
 import {
@@ -19,7 +20,7 @@ export const Category = () => {
   const { category } = useParams();
 
   // All the products from all the categories
-  const { products } = useSelector((state) => state.products);
+  const { products, isLoading } = useSelector((state) => state.products);
 
   // Only the products that we want
   const [categoryProducts, setCategoryProducts] = useState([]);
@@ -34,12 +35,16 @@ export const Category = () => {
       <CategoryTitleStyles as="h2">
         {category.toUpperCase()}
       </CategoryTitleStyles>
-      <CategoryContainerStyles>
-        {categoryProducts &&
-          categoryProducts.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-      </CategoryContainerStyles>
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <CategoryContainerStyles>
+          {categoryProducts &&
+            categoryProducts.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+        </CategoryContainerStyles>
+      )}
     </>
   );
 };

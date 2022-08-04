@@ -12,12 +12,13 @@ import { rootReducer } from "./root/rootReducer";
   Configuration object of the persist middleware
   Key: What reducer we're gonna check. Root is the main reducer, everything
   Storage: What type of storage we're gonna use. we've chosen localstorage
-  Blacklist: What reducers we want to let without check
+  Blacklist: What reducers we want to let without persist in storage
+  Blacklist: What reducers we want to persist in storage
 */
 const persistConfig = {
   key: "root",
   storage: storage,
-  blacklist: ["user"],
+  whitelist: ["cart"],
 };
 
 // Creation of the persisted reducer from the config file and the root reducer
