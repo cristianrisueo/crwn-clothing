@@ -3,6 +3,7 @@ import { compose, createStore, applyMiddleware } from "redux";
 import { logger } from "redux-logger";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import thunk from "redux-thunk";
 
 // Root reducer
 import { rootReducer } from "./root/rootReducer";
@@ -27,9 +28,10 @@ const persistedRootReducer = persistReducer(persistConfig, rootReducer);
   Logger is used for testing purposes, to see the value of the reducers
   We're going to use an if statement to make sure that only works for testing
 */
-const middlewares = [process.env.NODE_ENV === "development" && logger].filter(
-  Boolean
-);
+const middlewares = [
+  process.env.NODE_ENV === "development" && logger,
+  thunk,
+].filter(Boolean);
 
 /*
   We're going to do a check to always have a logger in development mode

@@ -4,10 +4,7 @@ import { Routes, Route } from "react-router-dom";
 
 // Redux components
 import { useDispatch } from "react-redux";
-import { setProducts } from "../../redux/products/productsActions";
-
-// Firebase components
-import { getCategoriesAndDocuments } from "../../utils/firebase/firebase";
+import { setProductsAsync } from "../../redux/products/productsActions";
 
 // Application components
 import { CategoriesPreview } from "../categories-preview/categoriesPreview";
@@ -19,12 +16,8 @@ export const Shop = () => {
 
   // Returns the categories and products
   useEffect(() => {
-    const getCategories = async () => {
-      const categoriesArray = await getCategoriesAndDocuments();
-      dispatch(setProducts(categoriesArray));
-    };
+    dispatch(setProductsAsync());
 
-    getCategories();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
