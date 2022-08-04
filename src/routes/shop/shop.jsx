@@ -4,7 +4,7 @@ import { Routes, Route } from "react-router-dom";
 
 // Redux components
 import { useDispatch } from "react-redux";
-import { setProductsAsync } from "../../redux/products/productsActions";
+import { setProductsStart } from "../../redux/products/productsActions";
 
 // Application components
 import { CategoriesPreview } from "../categories-preview/categoriesPreview";
@@ -16,7 +16,7 @@ export const Shop = () => {
 
   // Returns the categories and products
   useEffect(() => {
-    dispatch(setProductsAsync());
+    dispatch(setProductsStart());
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

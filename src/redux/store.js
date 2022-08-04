@@ -3,17 +3,19 @@ import { compose, createStore, applyMiddleware } from "redux";
 import { logger } from "redux-logger";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import thunk from "redux-thunk";
+// import thunk from "redux-thunk"; We don't need it if we use Sagas
+import createSagaMiddleware from "redux-saga";
 
-// Root reducer
+// Root reducer and root Saga
 import { rootReducer } from "./root/rootReducer";
+import { rootSaga } from "./root/rootSaga";
 
 /*
   Configuration object of the persist middleware
   Key: What reducer we're gonna check. Root is the main reducer, everything
   Storage: What type of storage we're gonna use. we've chosen localstorage
   Blacklist: What reducers we want to let without persist in storage
-  Blacklist: What reducers we want to persist in storage
+  Whitelist: What reducers we want to persist in storage
 */
 const persistConfig = {
   key: "root",
@@ -24,6 +26,9 @@ const persistConfig = {
 // Creation of the persisted reducer from the config file and the root reducer
 const persistedRootReducer = persistReducer(persistConfig, rootReducer);
 
+// Creation of the Redux-Saga middleware
+const sagaMiddleware = createSagaMiddleware();
+
 /* 
   Middlewares are libraries added to Redux to do some additional functions
   Logger is used for testing purposes, to see the value of the reducers
@@ -31,7 +36,8 @@ const persistedRootReducer = persistReducer(persistConfig, rootReducer);
 */
 const middlewares = [
   process.env.NODE_ENV === "development" && logger,
-  thunk,
+  // thunk,
+  sagaMiddleware,
 ].filter(Boolean);
 
 /*
@@ -54,6 +60,9 @@ export const store = createStore(
   undefined,
   composedMiddlewares
 );
+
+// After the createStore instance we run the root Saga
+sagaMiddleware.run(rootSaga);
 
 // Creation of a persisted store from the store
 export const persistedStore = persistStore(store);

@@ -1,5 +1,5 @@
 // Firebase components
-import { getCategoriesAndDocuments } from "../../utils/firebase/firebase";
+// import { getCategoriesAndDocuments } from "../../utils/firebase/firebase";
 
 // Imports the products action types
 import { PRODUCTS_TYPES_ACTIONS } from "./productsTypes";
@@ -29,7 +29,8 @@ export const setProductsFail = (error) => ({
   payload: error,
 });
 
-// Thunk method that triggers the actions
+/* 
+* Thunk method that triggers the actions. Migrated to Sagas, not needed
 export const setProductsAsync = () => async (dispatch) => {
   dispatch(setProductsStart());
 
@@ -40,3 +41,4 @@ export const setProductsAsync = () => async (dispatch) => {
     dispatch(setProductsFail(error));
   }
 };
+*/
