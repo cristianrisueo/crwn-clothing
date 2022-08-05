@@ -5,9 +5,7 @@ import { Outlet } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { selectIsCartOpen } from "../../redux/cart/cartSelector";
 import { setIsCartOpen } from "../../redux/cart/cartAction";
-
-// Firebase components
-import { signOutUser } from "../../utils/firebase/firebase";
+import { signOutStart } from "../../redux/user/userActions";
 
 // Application components
 import { CartIcon } from "../cart-icon/cartIcon";
@@ -27,6 +25,9 @@ import {
 export const NavigationBar = () => {
   // Instance of dispatch
   const dispatch = useDispatch();
+
+  // Sign out user with Redux Saga
+  const signOutUser = () => dispatch(signOutStart());
 
   // Gets the currentUser value from the user state
   const { currentUser } = useSelector((state) => state.user);

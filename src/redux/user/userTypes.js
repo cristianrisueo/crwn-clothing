@@ -1,7 +1,15 @@
-/* 
-  Object with the actions to be performed by the
-  user's reducer
-*/
+// Object with the actions to be performed by the user's reducer
 export const USER_TYPES_ACTIONS = {
   SET_CURRENT_USER: "SET_CURRENT_USER",
+  CHECK_USER_SESSION: "CHECK_USER_SESSION",
+  GOOGLE_SIGNIN_START: "GOOGLE_SIGNIN_START",
+  EMAIL_SIGNIN_START: "EMAIL_SIGNIN_",
+  SIGN_IN_SUCCESS: "SIGN_IN_SUCCESS",
+  SIGN_IN_FAIL: "SIGN_IN_FAIL",
+  SIGN_UP_START: "SIGN_UP_START",
+  SIGN_UP_SUCCESS: "SIGN_UP_SUCCESS",
+  SIGN_UP_FAIL: "SIGN_UP_FAIL",
+  SIGN_OUT_START: "SIGN_OUT_START",
+  SIGN_OUT_SUCCESS: "SIGN_OUT_SUCCESS",
+  SIGN_OUT_FAIL: "SIGN_OUT_FAIL",
 };

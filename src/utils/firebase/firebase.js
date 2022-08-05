@@ -197,3 +197,17 @@ export const getCategoriesAndDocuments = async () => {
 
   return categoriesObject;
 };
+
+// OnAuthStateChanged converted from ovserbable listener to promise
+export const getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const unSubscribe = onAuthStateChanged(
+      auth,
+      (userAuth) => {
+        unSubscribe();
+        resolve(userAuth);
+      },
+      reject
+    );
+  });
+};

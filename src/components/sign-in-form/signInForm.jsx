@@ -1,11 +1,12 @@
 // React components
 import { useState } from "react";
 
-// Firebase components
+// Redux components
+import { useDispatch } from "react-redux";
 import {
-  googleSignInWithPopup,
-  signInAuthUserWithEmailAndPassword,
-} from "../../utils/firebase/firebase";
+  googleSignInStart,
+  emailSignInStart,
+} from "../../redux/user/userActions";
 
 // Application components
 import { FormInput } from "../form-input/formInput";
@@ -25,13 +26,16 @@ const defaultFormFields = {
 };
 
 export const SignInForm = () => {
+  // Instance of dispatch
+  const dispatch = useDispatch();
+
   // Creates the variable formFields and destructures its values
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
 
   // Sign in with google popup method
   const signInWithGoogle = async () => {
-    await googleSignInWithPopup();
+    dispatch(googleSignInStart());
   };
 
   /*
@@ -44,7 +48,7 @@ export const SignInForm = () => {
     event.preventDefault();
 
     try {
-      await signInAuthUserWithEmailAndPassword(email, password);
+      dispatch(emailSignInStart(email, password));
       setFormFields(defaultFormFields);
     } catch (error) {
       switch (error.code) {

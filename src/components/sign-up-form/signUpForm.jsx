@@ -1,11 +1,9 @@
 // React components
 import { useState } from "react";
 
-// Firebase components
-import {
-  createUserWithEmailPassword,
-  createUserDocument,
-} from "../../utils/firebase/firebase";
+// Redux components
+import { useDispatch } from "react-redux";
+import { signUpStart } from "../../redux/user/userActions";
 
 // Application components
 import { FormInput } from "../form-input/formInput";
@@ -23,6 +21,9 @@ const defaultFormFields = {
 };
 
 export const SignUpForm = () => {
+  // Dispatch instance
+  const dispatch = useDispatch();
+
   // Creates the variable formFields and destructures its values
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
@@ -39,10 +40,7 @@ export const SignUpForm = () => {
     if (password !== confirmPassword) return;
 
     try {
-      const response = await createUserWithEmailPassword(email, password);
-      const { user } = response;
-
-      createUserDocument(user, { displayname: displayName });
+      dispatch(signUpStart(email, password, displayName));
     } catch (e) {
       console.log(`Error in user creation ${e.message}`);
     }
