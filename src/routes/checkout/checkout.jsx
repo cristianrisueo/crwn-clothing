@@ -9,12 +9,11 @@ import {
   selectCartTotal,
 } from "../../redux/cart/cartSelector";
 
-import {
-  setIsCartOpen,
-} from "../../redux/cart/cartAction";
+import { setIsCartOpen } from "../../redux/cart/cartAction";
 
 // Application components
 import { CheckoutItem } from "../../components/checkout-item/checkoutItem";
+import { PaymentForm } from "../../components/payment-form/paymentForm";
 
 // Styles
 import {
@@ -59,6 +58,8 @@ export const Checkout = () => {
       })}
 
       <TotalStyles as="span">Total: {cartTotal}</TotalStyles>
+
+      <PaymentForm />
     </CheckoutContainerStyles>
   );
 };
